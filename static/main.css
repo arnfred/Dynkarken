@@ -1,0 +1,67 @@
+.clear {
+	clear:both;
+}
+
+.no-show {
+	display:none;
+}
+
+/*
+ * Background
+ */
+html { 
+  /*background: url(/static/images/IMG_6943_small.jpg) no-repeat center center fixed; */
+  /*background: url(/static/images/IMG_7723.jpg) no-repeat center center fixed; */
+  background: url(/static/images/IMG_5631-medium.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+h1 {
+    background:rgba(50, 50, 50, 0.5);
+}
+
+a {
+    color:rgb(160, 160, 160);
+}
+
+a:hover {
+    text-decoration:none;
+    color:rgb(120, 120, 120)
+}
+div#page {
+    position:absolute;
+    bottom:5%;
+    width:100%;
+}
+
+div#links {
+    margin-top:1em;
+}
+
+div#link-margin, div#links a.link, div#link-after {
+    display: inline-block;
+    height:2em;
+    background:rgba(0, 0, 0, 0.6);
+    width: 13%;
+    text-align: center;
+    padding:0.3em;
+    color:rgb(160, 160, 160);
+}
+
+div#link-after {
+    width:auto;
+    text-align:right;
+    padding:0.3em 3em;
+}
+
+div#links a.link:hover {
+    background:rgba(50, 50, 50, 0.7);
+    text-decoration:none;
+}
+
+img#banner-image {
+    width:100%;
+}
