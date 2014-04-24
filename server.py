@@ -24,7 +24,6 @@ class page :
   def GET(self, page_id):
     return render.page(page_id, page_id)
 
-
 # Index page displays start page
 class index :
   def GET(self):
