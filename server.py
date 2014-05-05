@@ -8,7 +8,7 @@ import json
 # Define pages
 urls = (
   '/', 'index',
-  '/(.+)', 'page'
+  '/(.[a-z0-9.-_!?]+)/', 'page'
 )
 
 # Define template
