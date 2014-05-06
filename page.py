@@ -117,9 +117,9 @@ def publish_page(prog_name, argv, temp_root = "tmp") :
     call(["rm","-r", markdown_path])
 
     # Push it to the server
-    push(conf_path)
+    push(temp_dir)
     print("removing temp dir")
-    #call(["rm","-r", temp_dir])
+    call(["rm","-r", temp_dir])
 
 
 def read_conf(conf_path) :
