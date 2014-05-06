@@ -109,16 +109,17 @@ def publish_page(prog_name, argv, temp_root = "tmp") :
                 raise Exception("Image %s doesn't exist" % image_path)
 
     # Translate markdown to html
-    markdown_path = os.path.join(temp_dir, conf_path.replace(".conf", ".md"))
-    html_path = os.path.join(temp_dir, conf_path.replace(".conf", ".html"))
+    markdown_path = os.path.join(temp_dir, "page.md")
+    html_path = os.path.join(temp_dir, "page.html")
     with open(markdown_path, 'a') as markdown_fp :
         markdown_fp.write(info.get('text', ""))
     call(["pandoc","-f","markdown","-t","html", markdown_path, "-o", html_path])
     call(["rm","-r", markdown_path])
+
     # Push it to the server
     push(conf_path)
     print("removing temp dir")
-    call(["rm","-r", temp_dir])
+    #call(["rm","-r", temp_dir])
 
 
 def read_conf(conf_path) :

@@ -1,4 +1,4 @@
-$def with(name, page_id)
+$def with(name, page_id, content)
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,7 +10,6 @@ $def with(name, page_id)
     <!-- Bootstrap -->
     <link href="/static/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="/static/page.css" rel="stylesheet">
-    <link href="/static/lib/color/spectrum.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -27,30 +26,14 @@ $def with(name, page_id)
         <div id="content">
 
             <h1>$name</h1>
-            <article lang="en">
-                <p>As designers attempting to creating functional work, oftentimes we are required to make our designs look as finished as possible.</p>
-
-                <p>For example, if you are designing a brand new website for someone, most times you will have to make sure the prototype looks finished by inserting text or photos or what have you. The purpose of this is so the person viewing the prototype has a chance to actually feel and understand the idea behind what you have created.</p>
-
-                <p>
-                Now in some circumstances, designers may use squares and rectangles to help you visualize what should and could be in a specific location.
-                </p>
-
-                <p>
-                We all have our won techniques, but one of the most effective techniques is to actually put some text where text goes and some pictures where pictures go to make sure everyone can see the vision you’ve created.
-                </p>
-
-                <p>
-                Coming up with filler text on the fly is not easy, but it is becoming more and more of a requirement. Fortunately, some designers and developers around the web know this and have put together a bunch of text generators to help you present your vision.
-                </p>
-
-                <p>
-                Some are standard (like the always popular ‘Lorem Ipsum’ generators) and some are really fun. Either way, pick one of your favorites from below and start generating text and completing your vision.
-                </p>
-            </article>
+            <div id="text" lang="en">
+                $:content
+            </div>
         </div>
     </div>
-    </p>
+    <div id="footer">
+        <p>Dynkarken is the personal website of <a href="/about/">Jonas Arnfred</a></p>
+    </div>
 
     <script src="/static/lib/curl.js" type="text/javascript"></script>
     <script>
@@ -59,17 +42,15 @@ $def with(name, page_id)
 	      lib: '/static/lib/',
 	      js: '/static/js/',
 	      templates : '/static/templates/',
-	      pages : '/static/data/pages',
+	      pages : '/static/pages',
           ractive : "/static/lib/ractive-legacy.min",
-          ractive_tap : "/static/lib/ractive-events-tap.min",
-          ractive_fade : "/static/lib/ractive-transitions-fade.min"
 	    } 
 	  },
-	  ["js/page", "text!pages/$(page_id).json", "domReady!"],
-	  function(controller, page_data) {
+	  //["js/page", "text!pages/$(page_id)/page.json", "text!pages/$(page_id)/page.html", "domReady!"],
+      [], function() {//controller, page_data, page_content) {
 	    // Nothing here. Check controller for initialization
-	    page_json = \$.parseJSON(page_data);
-	    controller.init(page_json);
+	    ////page_json = JSON.parse(page_data);
+	    //controller.init(page_json, page_content);
 	  });
       </script>
   </body>

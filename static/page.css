@@ -2,7 +2,7 @@
  * Image block
  */
 html, body {
-    background:rgb(247, 247, 247);
+    background:#fdfdfd;
     font-size: 12pt;
     height:100%;
 }
@@ -26,12 +26,7 @@ div#content {
     color:rgb(60, 60, 60);
 }
 
-article {
-    text-align: justify;
-
-}
-
-div#content p {
+div#content p, pre, ul, ol {
     -webkit-hyphens: auto;
     -moz-hyphens: auto;
     -ms-hyphens: auto;
@@ -40,20 +35,62 @@ div#content p {
     width:40%;
 }
 
+div#content li p {
+    margin:0
+}
+
+blockquote {
+    padding:10px 0 10px 40px;
+    background-color:#f0f0f0;
+    color:rgb(60, 60, 60);
+    font-size:1em;
+}
+
 div#content h1 {
     margin-top:0.4em;
     margin-bottom:0.4em;
     padding-top:0.4em;
     font-weight:bolder;
-    padding-left:40%;
+    padding-left:39.7%;
     width:100%;
     font-size:4em;
-    line-height:1.1em;
+    line-height:1.05em;
     padding-down:1em;
-    color:rgb(247, 247, 247);
+    color:rgb(252, 252, 252);
     background:rgb(60, 60, 60);
+}
+
+span.kw {
+    color: rgb(150, 70, 30);
+    font-weight:bold;
+}
+
+span.dv {
+    color: rgb(10, 50, 180);
+}
+
+span.co {
+    color: rgb(50, 50, 50);
+    font-style:italic;
 }
 
 div.col-md-6 {
     max-width:600px;
+}
+
+div#footer {
+    margin-top:2em;
+    height:3em;
+    width: 100%;
+    color:rgb(202, 202, 202);
+    background:rgb(60, 60, 60);
+}
+
+div#footer p {
+    padding-top:0.9em;
+    width: 40%;
+    margin-left: 40%;
+    text-align:right;
+    font-size: 0.95em;
+    font-style:italic;
 }
