@@ -12,8 +12,8 @@ html, body {
 }
 
 #banner { 
-    height:60%;
-    background: url(/static/images/IMG_5631-medium.jpg) no-repeat center 150% fixed; 
+    height:430px;
+    background: url(/static/images/IMG_5631-medium.jpg) no-repeat center -185px fixed; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -24,6 +24,7 @@ html, body {
 div#content {
     height:100%;
     color:rgb(60, 60, 60);
+    margin-left:0.3em;
 }
 
 div#content p, pre, ul, ol {
@@ -31,34 +32,39 @@ div#content p, pre, ul, ol {
     -moz-hyphens: auto;
     -ms-hyphens: auto;
     hyphens:auto;
-    margin-left:40%;
-    width:40%;
 }
 
 div#content li p {
-    margin:0
+    margin:0;
+}
+
+div#info {
+    text-align:right;
 }
 
 blockquote {
-    padding:10px 0 10px 40px;
+    padding:10px 10px 10px 40px;
     background-color:#f0f0f0;
     color:rgb(60, 60, 60);
     font-size:1em;
 }
 
-div#content h1 {
-    margin-top:0.4em;
-    margin-bottom:0.4em;
-    padding-top:0.4em;
+div#title h1 {
     font-weight:bolder;
-    padding-left:39.7%;
     width:100%;
     font-size:4em;
     line-height:1.05em;
-    padding-down:1em;
-    color:rgb(252, 252, 252);
-    background:rgb(60, 60, 60);
+    margin: 0;
 }
+
+div#title {
+    color:#fdfdfd;
+    background:rgb(60, 60, 60);
+    margin-top:1em;
+    margin-bottom:1.5em;
+    padding-top:1.5em;
+}
+
 
 span.kw {
     color: rgb(150, 70, 30);
@@ -79,7 +85,7 @@ div.col-md-6 {
 }
 
 div#footer {
-    margin-top:2em;
+    margin:2em 0 0 0;
     height:3em;
     width: 100%;
     color:rgb(202, 202, 202);
@@ -87,10 +93,9 @@ div#footer {
 }
 
 div#footer p {
+    width:100%;
     padding-top:0.9em;
-    width: 40%;
-    margin-left: 40%;
+
     text-align:right;
     font-size: 0.95em;
-    font-style:italic;
 }

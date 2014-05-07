@@ -1,11 +1,11 @@
-$def with(name, page_id, content)
+$def with(title, published, tags, content, page_id)
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dynkarken: $name</title>
+    <title>Dynkarken: $title</title>
 
     <!-- Bootstrap -->
     <link href="/static/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
@@ -22,20 +22,27 @@ $def with(name, page_id, content)
     <div class="row" id="banner">
         &nbsp;
     </div>
-    <div class="row" id="page">
-        <div id="content">
-
-            <h1>$name</h1>
-            <div id="text" lang="en">
-                $:content
-            </div>
+    <div class="row" id="title">
+        <div class="col-md-offset-4 col-md-6">
+            <h1>$title</h1>
         </div>
     </div>
-    <div id="footer">
-        <p>Dynkarken is the personal website of <a href="/about/">Jonas Arnfred</a></p>
+    <div class="row">
+        <div class="col-md-offset-1 col-md-3" id="info">
+            <p>$published</p>
+            <!--<p>$tags</p>-->
+        </div>
+        <div class="col-md-6" id="content">
+            $:content
+        </div>
+    </div>
+    <div class="row" id="footer">
+        <div class="col-md-offset-4 col-md-6">
+            <p>Dynkarken is the personal website of <a href="/about/">Jonas Arnfred</a></p>
+        </div>
     </div>
 
-    <script src="/static/lib/curl.js" type="text/javascript"></script>
+    <!--<script src="/static/lib/curl.js" type="text/javascript"></script>-->
     <script>
 	curl({ 
 	    paths: { 
