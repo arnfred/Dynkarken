@@ -22,7 +22,7 @@ if __name__ == "__main__":
 # Index page displays start page
 class page :
     def GET(self, page_id):
-        page_path = "static/pages/%s/" % page_id
+        page_path = "static/pages/%s" % page_id
         print(page_path)
         try :
             with open("%s/page.json" % page_path, 'r') as page_fp :
