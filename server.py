@@ -22,15 +22,17 @@ if __name__ == "__main__":
 # Index page displays start page
 class page :
     def GET(self, page_id):
+        page_path = "static/pages/%s/" % page_id
+        print(page_path)
         try :
-            with open("static/pages/%s/page.json" % page_id, 'r') as page_fp :
+            with open("%s/page.json" % page_path, 'r') as page_fp :
                 page_json = json.loads(page_fp.read())
-            with open("static/pages/%s/page.html" % page_id, 'r') as page_fp :
+            with open("%s/page.html" % page_path, 'r') as page_fp :
                 content = page_fp.read().replace("\n\n","\n").replace(">\n<","><")
             title = page_json["title"]
             published = parse_date(page_json["published"])
-            tags = ", ".join(page_json["tags"]) if len(page_json["tags"]) > 0 else ""
-            return render.page(title, published, tags, content, page_id)
+            abstract = page_json.get("abstract","")
+            return render.page(title, published, abstract, content, page_id)
         except IOError :
             return "Page '%s' not found" % page_id
 

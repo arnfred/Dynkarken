@@ -56,7 +56,7 @@ Listed :: True
 URL :: {1}
 Published :: {2}
 Images :: []
-Tags :: []
+Abstract ::
 ================
 Placeholder text here...
 """.format(conf_name, conf_url, strftime("%Y-%m-%d"))
@@ -116,6 +116,9 @@ def publish_page(prog_name, argv, temp_root = "tmp") :
     call(["pandoc","-f","markdown","-t","html", markdown_path, "-o", html_path])
     call(["rm","-r", markdown_path])
 
+    # Remove the text part of the json
+    del info["text"]
+
     # Push it to the server
     push(temp_dir)
     print("removing temp dir")
@@ -140,6 +143,8 @@ def read_conf(conf_path) :
                 page['tags'] = value_stripped.strip("[ ]").split(", ")
             elif name.lower() == "public" :
                 page['public'] = value_stripped.lower() in ["true", "yes"]
+            elif name.lower() == "abstract" :
+                page['abstract'] = value_stripped
             elif name.lower() == "published" :
                 page['published'] = parser.parse(value)
             else:

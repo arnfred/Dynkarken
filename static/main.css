@@ -10,12 +10,12 @@ html {
 }
 
 a {
-    color:rgb(160, 160, 160);
+    color:rgb(200, 200, 200);
 }
 
 a:hover {
+    color:#bb4511;
     text-decoration:none;
-    color:rgb(120, 120, 120)
 }
 
 div#page {
@@ -26,28 +26,35 @@ div#page {
 
 div#links {
     margin-top:1em;
+    font-family:"Droid Sans", 'Open Sans', sans-serif, Helvetica;
 }
 
 div#link-margin, div#links a.link, div#link-after {
     display: inline-block;
-    height:2em;
+    height:2.2em;
+    font-size:1.1em;
     background:rgba(0, 0, 0, 0.6);
-    width: 13%;
+    width: 15%;
     text-align: center;
-    padding:0.3em;
-    color:rgb(160, 160, 160);
+    padding:0.4em;
+    color:rgb(200, 200, 200);
 }
+
+div#link-margin {
+    width:13%;
+}
+
 
 div#link-after {
     width:auto;
     text-align:right;
-    padding:0.3em 3em;
+    padding:0.4em 3em;
 }
 
 div#links a.link:hover {
-    background:rgba(250, 250, 250, 0.4);
+    background:rgba(0, 0, 0, 0.7);
     text-decoration:none;
-    color:#111;
+    color:#bb4511;
 }
 
 img#banner-image {
