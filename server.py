@@ -33,8 +33,8 @@ class page :
             published = parse_date(page_json["published"])
             abstract = page_json.get("abstract","")
             return render.page(title, published, abstract, content, page_id)
-        except IOError as e :
-            return "Page '%s' not found (%s)" % (page_id, e)
+        except IOError:
+            return "Page '%s' not found" % (page_id)
 
 # Index page displays start page
 class index :
