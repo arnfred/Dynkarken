@@ -1,11 +1,11 @@
-$def with(title, published, abstract, content, page_id)
+$def with(page, page_id)
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dynkarken: $title</title>
+    <title>Dynkarken: $page["title"]</title>
 
     <!-- Bootstrap -->
     <link href="/static/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
@@ -22,19 +22,19 @@ $def with(title, published, abstract, content, page_id)
     <div id="page">
         <div class="row title" id="title">
             <div class="col-md-5 leftmost">
-                <h1>$title</h1>
+                <h1>$page["title"]</h1>
             </div>
         </div>
         <div class="row title">
             <div class="col-md-5 leftmost" id="abstract">
 
-                <p>$abstract</p>
+                <p>$page["abstract"]</p>
             </div>
 
         </div>
         <div class="row" id="content">
             <div class="leftmost col-md-5">
-                $:content
+                $:page["content"]
             </div>
             <div class="col-md-offset-1 col-md-3" id="info">
 
@@ -46,7 +46,7 @@ $def with(title, published, abstract, content, page_id)
                 href="/projects/">projects</a>. You can find my cv <a
                 href="/static/cv.pdf">here</a></p>-->
 
-                <p>Published on $published</p>
+                $:page["published"]
                 <p>Back to <a href="/">frontpage</a></p>
             </div>
         </div>

@@ -129,7 +129,24 @@ div#footer {
 div#footer p {
     width:100%;
     padding-top:0.9em;
-
+    font-style:italic;
     text-align:right;
-    font-size: 0.95em;
+    font-size: 0.8em;
+    font-family:ff-tisa-web-pro-1,ff-tisa-web-pro-2,Georgia,serif;
+}
+
+/* Writings */
+a.header:hover {
+    text-decoration:none;
+}
+
+h2 {
+    margin-top:0;
+}
+
+p.read-more {
+    margin-top:-5px;
+    font-size:0.8em;
+    text-align:right;
+    font-style:italic;
 }

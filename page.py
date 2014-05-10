@@ -54,6 +54,7 @@ def init_page(prog_name, argv) :
     init_conf = """Title :: {0}
 Listed :: True
 URL :: {1}
+Parent :: writings
 Published :: {2}
 Images :: []
 Abstract ::
@@ -143,8 +144,6 @@ def read_conf(conf_path) :
                 page['tags'] = value_stripped.strip("[ ]").split(", ")
             elif name.lower() == "public" :
                 page['public'] = value_stripped.lower() in ["true", "yes"]
-            elif name.lower() == "abstract" :
-                page['abstract'] = value_stripped
             elif name.lower() == "published" :
                 page['published'] = parser.parse(value)
             else:
@@ -215,6 +214,7 @@ class DateTimeEncoder(json.JSONEncoder):
 def push(local_dir, host_dir = "pages", host = "dynkarken.com", user = "arnfred"):
     if local_dir[-1] == '/' : local_dir = local_dir[:-1]
     call(["rsync","-av",local_dir, "%s@%s:~/%s" % (user, host, host_dir)])
+    call(["cp","-r",local_dir, "/home/arnfred/Code/dynkarken/static/pages/"])
     # So, put this together with publish. Collect the directories created
     # and for each, push the photos
     # finally delete directories
