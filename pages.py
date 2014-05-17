@@ -40,7 +40,7 @@ class Pages :
         if url.lower() == "writings" :
             return self.list_pages()
         elif url.lower() == "update" :
-            self.update();
+            self.pages = self.update();
             return self.update_page()
 
         try :

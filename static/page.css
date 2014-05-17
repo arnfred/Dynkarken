@@ -56,6 +56,10 @@ div#info p {
     font-family:"Droid Sans", 'Open Sans', sans-serif, Helvetica;
 }
 
+div#info {
+    margin-top:1em;
+}
+
 div#abstract p {
     font-style:italic;
     font-family:"Droid Sans", 'Open Sans', sans-serif, Helvetica;
@@ -141,7 +145,7 @@ a.header:hover {
 }
 
 h2 {
-    margin-top:0;
+    margin-top:1em;
 }
 
 p.read-more {

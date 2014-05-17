@@ -99,15 +99,24 @@ def publish_page(prog_name, argv, temp_root = "tmp") :
     with open("%s/%s" % (temp_dir, "page.json"), 'w') as fp:
         json.dump(info, fp, cls=DateTimeEncoder)
 
-    # Find images and resize them
-    for im_file in info.get('images', []) :
-        if len(im_file) > 0 :
-            print("processing %s" % (im_file))
-            image_path = find_image(".", im_file)
-            if image_path != None :
-                resize_image(image_path, temp_dir)
+    # Find file and if they are images then resize them
+    for file_name in info.get('files', []) :
+        base_name, extension = os.path.splitext(file_name)
+        if len(file_name) > 0 :
+            print("processing %s" % (file_name))
+            file_path = find_file(".", file_name)
+            if file_path != None :
+                # Translate url's in text
+                url = "/static/pages/%s/%s" % (info['url'], file_name)
+                text = info.get("text", "").replace("(%s)" % file_name, "(%s)" % url)
+                print(text)
+                info["text"] = text
+                if extension in ["jpg","png","gif","bmp"] :
+                    resize_image(file_path, temp_dir)
+                else :
+                    call(["cp", file_path, temp_dir])
             else :
-                raise Exception("Image %s doesn't exist" % image_path)
+                raise Exception("Image %s doesn't exist" % file_path)
 
     # Translate markdown to html
     markdown_path = os.path.join(temp_dir, "page.md")
@@ -123,7 +132,7 @@ def publish_page(prog_name, argv, temp_root = "tmp") :
     # Push it to the server
     push(temp_dir)
     print("removing temp dir")
-    call(["rm","-r", temp_dir])
+    #call(["rm","-r", temp_root])
 
 
 def read_conf(conf_path) :
@@ -138,8 +147,8 @@ def read_conf(conf_path) :
             (name, value) = conf_line.split(" ::")
             value_stripped = value.strip("\n ").strip("\"")
             # Get information from images
-            if name.lower() == "images" :
-                page['images'] = value_stripped.strip("[ ]").split(", ")
+            if name.lower() == "files" :
+                page['files'] = value_stripped.strip("[ ]").split(", ")
             elif name.lower() == "tags" :
                 page['tags'] = value_stripped.strip("[ ]").split(", ")
             elif name.lower() == "public" :
@@ -151,7 +160,7 @@ def read_conf(conf_path) :
         else :
             break
     # The rest of the lines are markdown
-    page['text'] = "\n".join(conf[index:]).strip("=-_ \t\n")
+    page['text'] = "".join(conf[index:]).strip("=-_ \t\n")
     return page
 
 
@@ -160,38 +169,34 @@ def resize_image(image_path, directory):
     """ Resize image """
 
     # Create thumbnails of the following sizes
-    thumb_height, thumb_width = (800, 600)
+    thumb_height, thumb_width = (600, 600)
 
     # Make sure directory exists
     if not os.path.exists(directory):
         os.mkdir(directory)
 
     # Open original image
-    image_orig = Image.open(image_path)
-    image = image_orig.copy()
-    orientation = 'horizontal' if image_orig.size[0] > image_orig.size[1] else 'vertical'
+    image = Image.open(image_path)
+    orientation = 'horizontal' if image.size[0] > image.size[1] else 'vertical'
 
-    # Crop the square thumbnails
-    if thumb_width == thumb_height:
-        (width, height) = image.size
-        if orientation == 'horizontal':
-            margin = (width - height) / 2
-            image = image.crop((margin, 0, width - margin, height))
-        else:
-            margin = (height - width) / 2
-            image = image.crop((0, margin, width, height - margin))
+    (width, height) = image.size
+    if orientation == 'horizontal':
+        new_width = min(width, thumb_width)
+        new_height = int(height * (new_width / float(width)))
+    else:
+        new_height = min(height, thumb_height)
+        new_width = int(width * (new_height / float(height)))
 
     # Resize resulting image and save to directory
-    image.thumbnail((thumb_width, thumb_height), Image.ANTIALIAS)
+    image.thumbnail((new_width, new_height), Image.ANTIALIAS)
 
     # Save image
-    thumb_path = "%s/%s" % (directory, image_path, thumb_width, thumb_height)
+    thumb_path = "%s/%s" % (directory, image_path)
     image.save(thumb_path)
 
 
-
-def find_image(directory, name):
-    """ Returns the first image in subdirectories of directory that matches name """
+def find_file(directory, name):
+    """ Returns the first file in subdirectories of directory that matches name """
     # find the exact location of a filename that might reside in the subfolder of the root
     for root, dirs, files in os.walk(directory):
         for f in files:
@@ -215,9 +220,6 @@ def push(local_dir, host_dir = "pages", host = "dynkarken.com", user = "arnfred"
     if local_dir[-1] == '/' : local_dir = local_dir[:-1]
     call(["rsync","-av",local_dir, "%s@%s:~/%s" % (user, host, host_dir)])
     call(["cp","-r",local_dir, "/home/arnfred/Code/dynkarken/static/pages/"])
-    # So, put this together with publish. Collect the directories created
-    # and for each, push the photos
-    # finally delete directories
 
 
 
