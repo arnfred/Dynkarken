@@ -109,12 +109,11 @@ def publish_page(prog_name, argv, temp_root = "tmp") :
                 # Translate url's in text
                 url = "/static/pages/%s/%s" % (info['url'], file_name)
                 text = info.get("text", "").replace("(%s)" % file_name, "(%s)" % url)
-                print(text)
                 info["text"] = text
                 if extension in ["jpg","png","gif","bmp"] :
                     resize_image(file_path, temp_dir)
                 else :
-                    call(["cp", file_path, temp_dir])
+                    call(["cp", "-f", file_path, temp_dir])
             else :
                 raise Exception("Image %s doesn't exist" % file_path)
 
@@ -132,7 +131,7 @@ def publish_page(prog_name, argv, temp_root = "tmp") :
     # Push it to the server
     push(temp_dir)
     print("removing temp dir")
-    #call(["rm","-r", temp_root])
+    call(["rm","-r", temp_root])
 
 
 def read_conf(conf_path) :

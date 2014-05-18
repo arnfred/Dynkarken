@@ -37,7 +37,7 @@ class Pages :
 
     def get(self, url) :
         # Check for special pages
-        if url.lower() == "writings" :
+        if url.lower() == "notes" :
             return self.list_pages()
         elif url.lower() == "update" :
             self.pages = self.update();
