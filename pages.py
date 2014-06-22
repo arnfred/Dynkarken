@@ -7,6 +7,7 @@ class Pages :
     def __init__(self, path = "static/pages") :
         self.path = path
         self.pages = self.update()
+        self.cover_url = "http://www.ifany.org/cover/"
 
 
     def update(self) :
@@ -19,25 +20,46 @@ class Pages :
     def get_info(self, directory) :
         try :
             with open(join(self.path, directory, "page.json")) as page_fp :
-                page_json = json.loads(page_fp.read())
+                page = json.loads(page_fp.read())
             with open(join(self.path, directory, "page.html")) as page_fp :
                 content = page_fp.read().replace("\n\n","\n").replace(">\n<","><")
-            page = {
-                "title" : page_json["title"],
-                "published" : self.parse_date(page_json["published"]),
-                "abstract" : page_json.get("abstract",""),
-                "listed" : page_json["listed"],
-                "parent" : page_json.get("parent","frontpage"),
-                "content" : content }
+            if page.get("abstract","") == "":
+                page["abstract"] = page["text"].split("\n")[0]
+            page["content"] = content
+            page["published"] = self.parse_date(page["published"])
+            page["cover"] = self.get_cover_fun(directory)
+            page["listed"] = page["listed"] == "True"
+            page["links"] = self.scroll_down()
         except IOError as e :
             page = self.error_404(directory)
             print("Page not found: %s" % (e))
+        # Set cover
         return page
+
+    def get_cover_fun(self, directory):
+         return lambda size : self.cover_url + directory + "/" + str(size) + "/"
+
+
+    def scroll_down(self):
+        return [self.cover_link("scroll down", "#content")]
+
+
+    def home_link(self):
+        return [self.cover_link("home", "/")]
+
+
+    def cover_link(self, name, href):
+        return {
+            "name" : name,
+            "href" : href
+        }
 
 
     def get(self, url) :
         # Check for special pages
-        if url.lower() == "notes" :
+        if url == "":
+            return self.home_page()
+        elif url.lower() == "notes" :
             return self.list_pages()
         elif url.lower() == "update" :
             self.pages = self.update();
@@ -47,19 +69,29 @@ class Pages :
             page = self.pages[url]
         except KeyError as e :
             page = self.error_404(url)
+            print(page)
             print("Page not found: %s" % (e))
+            print(self.cover_page("test","subtest"))
         return page
+
+
+    def home_page(self):
+        links = [self.cover_link("photos","http://www.ifany.org"),
+                 self.cover_link("knitwit", "http://knitwit.dynkarken.com"),
+                 self.cover_link("about", "/about/")]
+        return self.cover_page("Dynkarken",
+                               "Personal web page of Jonas Arnfred",
+                               links = links)
+
+
 
 
     def list_pages(self) :
         pages = { k : p for k,p in self.pages.items() if p["listed"] }
-        return {
-            "title" : "Writings",
-            "abstract" : "These are miscellaneous writings mostly used for me to as place to pin down thoughts and take notes of things I'd like to remember.",
-            "published" : "",
-            "parent" : "frontpage",
-            "listed" : False,
-            "content" : "<hr/>\n".join([self.write_page(k,p) for k,p in pages.items()]) }
+        title = "Writings"
+        subtitle = "A compilation of notes and thoughts"
+        content = "<hr/>\n".join([self.write_page(k,p) for k,p in pages.items()])
+        return self.cover_page(title, subtitle, content, self.scroll_down())
 
 
     def write_page(self, url, page) :
@@ -70,23 +102,31 @@ class Pages :
         return "\n".join([header, content, posted, footer])
 
 
-    def error_404(self, directory) :
+    def cover_page(self, title, subtitle, content = "", links = None):
+        links = links if links != None else self.home_link()
         return {
-            "title" : "404 - Page not found",
-            "abstract" : "The page you are looking for, '%s' did not match any pages on the server." % directory,
+            "title" : title,
+            "subtitle" : subtitle,
+            "abstract" : "",
             "published" : "",
             "parent" : False,
             "listed" : False,
-            "content" : "" }
+            "links" : links,
+            "cover" : self.get_cover_fun(title),
+            "content" : content
+         }
+
+    def error_404(self, directory) :
+        title = "404"
+        subtitle = "Page not found: %s" % directory
+        return self.cover_page(title, subtitle)
+
 
     def update_page(self) :
-        return {
-            "title" : "Updating ...",
-            "abstract" : "Currently updating pages",
-            "published" : "",
-            "parent" : False,
-            "listed" : False,
-            "content" : "" }
+        title = "Updating"
+        subtitle = "Changes should be online soon"
+        return self.cover_page(title, subtitle)
+
 
     def parse_date(self, date_string) :
         date_list = date_string[0:10].split("-")

@@ -4,7 +4,7 @@
 html, body {
     font-size: 12pt;
     height:100%;
-    background: url(/static/images/IMG_5631-medium.jpg) no-repeat center center fixed; 
+    /*background: url(/static/images/IMG_5631-medium.jpg) no-repeat center center; */
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -18,64 +18,119 @@ html, body {
 }
 
 a {
-    color:#fb8536;
+    color:#1E82A2;
 }
 
 a:hover {
-    color:#fb8536;
+    color:#59BEDF;
 }
 
 .leftmost {
-    margin-left:13%;
+    margin-left:23%;
 }
 
-div#page {
+div#title, div#content, div#footer {
+    padding: 0 10%;
+}
+
+div#cover {
+    display:table;
+    height:100%;
+    width:100%;
+}
+div#header {
+    display:table-row;
+}
+div#title-box {
+    display:table-cell;
+    height:100%;
+    width:100%;
+    vertical-align:bottom;
     position:relative;
-    top:65%;
+    color:#f5f5f5;
+}
+
+div#title{
+    background-image: -webkit-gradient(
+        linear, left top, left bottom, from(rgba(0,0,0,0.0)), to(rgba(0,0,0,0.8)));
+    background-image: -moz-linear-gradient(
+        rgba(0, 0, 0, 0.0) 0%, rgba(0, 0, 0, 0.7) 75%);
+    filter: progid:DXImageTransform.Microsoft.gradient(
+      startColorstr=#00000000, endColorstr=#000000a0);
+    -ms-filter: progid:DXImageTransform.Microsoft.gradient(
+      startColorstr=#00000000, endColorstr=#000000a0);
+    padding-top:40px;
+    padding-bottom:30px;
+    text-align:center;
 }
 
 div#title h1 {
+    text-shadow: 0px 0px 5px #000000;
+    filter: glow(color=black,strength=5), alpha(opacity=70);
     font-weight:bolder;
     width:100%;
-    font-size:2.8em;
+    font-size:3.4em;
     line-height:1.1em;
     margin: 0;
     margin-top:0.3em;
-    font-family:'Open Sans', sans-serif, Helvetica;
+    font-family:"Raleway",'Open Sans', sans-serif, Helvetica;
+    font-weight:700;
+    letter-spacing:0.04em;
 }
 
-div.title {
-    color:#f5f5f5;
-    background:rgba(0, 0, 0, 0.55);
-    padding-top:0.0em;
+div#cover-links {
+    text-align:center;
+    font-variant:small-caps;
+    font-family:"Raleway",'Open Sans', sans-serif, Helvetica;
 }
 
-div#info p {
-    color:rgb(100, 100, 100);
-    margin:0;
-    font-family:"Droid Sans", 'Open Sans', sans-serif, Helvetica;
+div.cover-link {
+    display:inline-block;
+    margin:0 0.5em;
 }
 
-div#info {
-    margin-top:1em;
+div.cover-link a {
+    color:rgb(205,205,205);
+    color:rgba(255,255,255,0.8);
+    font-size:1.2em;
 }
 
-div#abstract p {
-    font-style:italic;
-    font-family:"Droid Sans", 'Open Sans', sans-serif, Helvetica;
+div.cover-link a:hover {
+    color:#59BEDF;
+    text-decoration:none;
+    cursor:pointer;
+}
+
+div#title h2 {
+    font-size:2em;
+    color:rgb(205,205,205);
+    color:rgba(255,255,255,0.8);
+    margin-top:0;
+    font-family: "Raleway", sans serif;
+    line-height:1.1em;
+    font-weight:200;
     padding:0.5em 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+div#page {
+    background-color: #f5f5f5;
 }
 
 div#content {
     height:100%;
-    background:rgba(255, 255, 255, 0.8);
-    margin-top:1.5em;
-    padding:1.5em 0;
-    line-height:1.5em;
+    line-height:1.4em;
+    padding-top:1em;
 }
 
-div#content a {
-    color:#db6516;
+div#content p:last-child {
+    margin-bottom:3em;
+}
+
+div#content h2 {
+    font-family:"Raleway", sans serif;
+    font-weight:400;
+    margin:0.5em 0;
 }
 
 div#content p, pre, ul, ol {
@@ -84,20 +139,36 @@ div#content p, pre, ul, ol {
     -ms-hyphens: auto;
     hyphens:auto;
     font-family:ff-tisa-web-pro-1,ff-tisa-web-pro-2,Georgia,serif;
+    margin-bottom:1.5em;
 }
 
 blockquote {
-    padding:10px 10px 10px 20px;
+    padding:1em 1.3em;
     background-color:rgba(255, 255, 255, 0.8);
     font-size:1em;
     border-radius:4px;
     border-color:#bbb;
+    font-style:italic;
+    border-left:4px solid #ddd;
+    border-radius:0;
+}
+div#content blockquote p:last-child {
+    margin-bottom:0;
 }
 
 pre, code {
     font-family:"Monaco", "Consolas", "Lucida Console", monospace;
     background-color:rgba(255, 255, 255, 0.8);
     border:none;
+}
+
+pre.sourceCode {
+    padding: 15px;
+    background-color: #f1f1f9;
+    padding: 15px;
+    border-top: 1px solid #acd;
+    border-bottom: 1px solid #acd;
+    border-radius:0;
 }
 
 li p {
@@ -118,25 +189,50 @@ span.co {
     font-style:italic;
 }
 
-div.col-md-6 {
+div.col-md-7 {
     max-width:600px;
+}
+
+div#date { 
+    width:100%; 
+    text-align:center; 
+    border-bottom: 1px solid #ddd; 
+    line-height:0.1em; 
+    margin:10px 0 20px; 
+} 
+
+div#date span { 
+    background:#f5f5f5; 
+    padding:0 10px; 
+    font-style:italic;
+    font-size: 0.8em;
+    font-family:ff-tisa-web-pro-1,ff-tisa-web-pro-2,Georgia,serif;
+}
+
+
+div#footer-box {
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 div#footer {
     margin:0;
-    height:3em;
     width: 100%;
     color:#fdfdfd;
-    background:rgba(0, 0, 0, 0.55);
+    background-color:rgba(0,0,0,0.5);
 }
 
-div#footer p {
+div.footer p {
     width:100%;
     padding-top:0.9em;
     font-style:italic;
     text-align:right;
     font-size: 0.8em;
     font-family:ff-tisa-web-pro-1,ff-tisa-web-pro-2,Georgia,serif;
+    color:rgb(205,205,205);
+    color:rgba(255,255,255,0.8);
 }
 
 /* Writings */
@@ -153,4 +249,8 @@ p.read-more {
     font-size:0.8em;
     text-align:right;
     font-style:italic;
+}
+
+hr {
+    border-top:1px solid #ddd;
 }

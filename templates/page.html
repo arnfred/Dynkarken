@@ -1,94 +1,64 @@
 $def with(page, page_id)
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dynkarken: $page["title"]</title>
+$var title: Dynkarken: $page["title"]
 
-    <!-- Bootstrap -->
-    <link href="/static/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/page.css" rel="stylesheet">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div id="page">
-        <div class="row title" id="title">
-            <div class="col-md-5 leftmost">
-                <h1>$page["title"]</h1>
-            </div>
-        </div>
-        <div class="row title">
-            <div class="col-md-5 leftmost" id="abstract">
-
-                <p>$page["abstract"]</p>
-            </div>
-
-        </div>
-        <div class="row" id="content">
-            <div class="leftmost col-md-5">
-                $:page["content"]
-            </div>
-            <div class="col-md-offset-1 col-md-3" id="info">
-
-                <!--<p>Dynkarken is the website of <a
-                href="mailto:jonas@ifany.org">Jonas Arnfred</a>. I'm a software
-                engineer living in Singapore working with computer vision at <a
-                href="http://adsc.illinois.edu/">ADSC</a>. On this site I have <a href="/log/">writings</a>, <a
-                href="http://photos.dynkarken.com">photos</a> and host a few <a
-                href="/projects/">projects</a>. You can find my cv <a
-                href="/static/cv.pdf">here</a></p>-->
-
-                $:page["published"]
-                <p>Back to <a href="/">frontpage</a></p>
-            </div>
-        </div>
-        <div class="row" id="footer">
-            <div class="col-md-offset-5 col-md-5">
-                <p>Dynkarken is the personal website of <a href="/about/">Jonas Arnfred</a></p>
+<style>
+$if page["cover"]:
+    $ widths = [800, 1024, 1280, 1600, 2000]
+    @media screen {
+        body {
+            background: url($(page["cover"](800))) no-repeat center center;
+        }
+        div#footer-box {
+            background: url($(page["cover"](800))) no-repeat center bottom; 
+        }
+    }
+    $for i in range(len(widths)-1):
+        @media screen and (max-width: $(widths[i+1]+1)px) and (min-width: $(widths[i]+1)px) {
+            body {
+                background: url($(page["cover"](widths[i+1]))) no-repeat center center;
+            }
+            div#footer-box {
+                background: url($(page["cover"](widths[i+1]))) no-repeat center bottom; 
+            }
+        }
+</style>
+<body>
+    <div id="cover">
+        <div id="header">
+            <div id="title-box">
+                <div class="row title" id="title">
+                    <div class="col-md-8 col-md-offset-2">
+                        <h1>$page["title"]</h1>
+                        <h2>$page.get("subtitle","")</h2>
+                        <div id="cover-links">
+                        $for link in page["links"]:
+                            <div class="cover-link">
+                                <a href="$link["href"]">$link["name"]</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-    <!--<script src="/static/lib/curl.js" type="text/javascript"></script>-->
-    <script>
-	curl({ 
-	    paths: { 
-	      lib: '/static/lib/',
-	      js: '/static/js/',
-	      templates : '/static/templates/',
-	      pages : '/static/pages',
-          ractive : "/static/lib/ractive-legacy.min",
-	    } 
-	  },
-	  //["js/page", "text!pages/$(page_id)/page.json", "text!pages/$(page_id)/page.html", "domReady!"],
-      [], function() {//controller, page_data, page_content) {
-	    // Nothing here. Check controller for initialization
-	    ////page_json = JSON.parse(page_data);
-	    //controller.init(page_json, page_content);
-	  });
-      </script>
-    <!-- Piwik -->
-    <script type="text/javascript">
-    var _paq = _paq || [];
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    (function() {
-        var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.dynkarken.com/";
-        _paq.push(['setTrackerUrl', u+'piwik.php']);
-        _paq.push(['setSiteId', 3]);
-        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript';
-        g.defer=true; g.async=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-    })();
-    </script>
-    <noscript><p><img src="http://piwik.dynkarken.com/piwik.php?idsite=3" style="border:0;" alt="" /></p></noscript>
-    <!-- End Piwik Code -->
-  </body>
-</html>
+    $if page["content"] != "":
+        <div id="page">
+            <div class="row" id="content">
+                $if page["published"] != "":
+                    <div class="col-md-offset-2 col-md-7">
+                        <div id="date">
+                            <span>$page["published"]</span>
+                        </div>
+                    </div>
+                <div class="col-md-offset-2 col-md-7">
+                    $:page["content"]
+                </div>
+            </div>
+            <div id="footer-box">
+                <div class="row" id="footer">
+                    <div class="col-md-offset-2 col-md-7 footer">
+                        <p>Dynkarken is the personal website of &nbsp;<a href="/about/">Jonas Arnfred</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>

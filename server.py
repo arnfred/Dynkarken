@@ -7,12 +7,12 @@ from pages import Pages
 
 # Define urls
 urls = (
-    '/', 'index',
+    '/()', 'page',
     '/(.[a-z0-9.\-_!?]+)/', 'page'
 )
 
 # Define template
-render = web.template.render('templates/')
+render = web.template.render('templates/', base='base')
 
 # Define pages
 pages = Pages()

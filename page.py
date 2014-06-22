@@ -56,7 +56,8 @@ Listed :: True
 URL :: {1}
 Parent :: writings
 Published :: {2}
-Images :: []
+Files :: []
+Subtitle ::
 Abstract ::
 ================
 Placeholder text here...
@@ -115,7 +116,7 @@ def publish_page(prog_name, argv, temp_root = "tmp") :
                 else :
                     call(["cp", "-f", file_path, temp_dir])
             else :
-                raise Exception("Image %s doesn't exist" % file_path)
+                raise Exception("File '%s' doesn't exist" % file_path)
 
     # Translate markdown to html
     markdown_path = os.path.join(temp_dir, "page.md")
