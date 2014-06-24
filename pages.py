@@ -77,7 +77,8 @@ class Pages :
 
     def home_page(self):
         links = [self.cover_link("photos","http://www.ifany.org"),
-                 self.cover_link("knitwit", "http://knitwit.dynkarken.com"),
+                 self.cover_link("writings", "/notes/"),
+                 self.cover_link("projects", "/projects/"),
                  self.cover_link("about", "/about/")]
         page =  self.cover_page("Dynkarken",
                                 "The personal web page of Jonas Arnfred",
