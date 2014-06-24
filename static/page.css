@@ -4,13 +4,17 @@
 html, body {
     font-size: 12pt;
     height:100%;
-    /*background: url(/static/images/IMG_5631-medium.jpg) no-repeat center center; */
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
     position:static;
     color:rgb(20, 20, 20);
+    font-family:ff-tisa-web-pro-1,ff-tisa-web-pro-2,Georgia,serif;
+}
+
+h1, h2, h3, h4, h5, h6, #cover-links {
+    font-family:"Raleway",'Open Sans', sans-serif, Helvetica;
 }
 
 .row {
@@ -25,43 +29,62 @@ a:hover {
     color:#59BEDF;
 }
 
-.leftmost {
-    margin-left:23%;
+a:visited {
+    color:#80BEDF;
 }
 
 div#title, div#content, div#footer {
     padding: 0 10%;
 }
 
-div#cover {
-    display:table;
-    height:100%;
-    width:100%;
-}
-div#header {
-    display:table-row;
-}
-div#title-box {
-    display:table-cell;
-    height:100%;
-    width:100%;
-    vertical-align:bottom;
-    position:relative;
-    color:#f5f5f5;
+
+@media screen {
+    div#cover {
+        display:table;
+        height:100%;
+        width:100%;
+    }
+    div#header {
+        display:table-row;
+    }
+    div#title-box {
+        display:table-cell;
+        height:100%;
+        width:100%;
+        vertical-align:bottom;
+        position:relative;
+        color:#f5f5f5;
+    }
+
+    div#title{
+        background-image: -webkit-gradient(
+            linear, left top, left bottom, from(rgba(0,0,0,0.0)), to(rgba(0,0,0,0.8)));
+        background-image: -moz-linear-gradient(
+            rgba(0, 0, 0, 0.0) 0%, rgba(0, 0, 0, 0.7) 75%);
+        filter: progid:DXImageTransform.Microsoft.gradient(
+        startColorstr=#00000000, endColorstr=#000000a0);
+        -ms-filter: progid:DXImageTransform.Microsoft.gradient(
+        startColorstr=#00000000, endColorstr=#000000a0);
+        padding-top:40px;
+        padding-bottom:30px;
+        text-align:center;
+    }
 }
 
-div#title{
-    background-image: -webkit-gradient(
-        linear, left top, left bottom, from(rgba(0,0,0,0.0)), to(rgba(0,0,0,0.8)));
-    background-image: -moz-linear-gradient(
-        rgba(0, 0, 0, 0.0) 0%, rgba(0, 0, 0, 0.7) 75%);
-    filter: progid:DXImageTransform.Microsoft.gradient(
-      startColorstr=#00000000, endColorstr=#000000a0);
-    -ms-filter: progid:DXImageTransform.Microsoft.gradient(
-      startColorstr=#00000000, endColorstr=#000000a0);
-    padding-top:40px;
-    padding-bottom:30px;
-    text-align:center;
+
+@media print {
+    div#cover-links {
+        display:none;
+    }
+
+    div#date {
+        border: none !important;
+    }
+
+    body {
+        font-size: 10pt;
+    }
+
 }
 
 div#title h1 {
@@ -73,7 +96,6 @@ div#title h1 {
     line-height:1.1em;
     margin: 0;
     margin-top:0.3em;
-    font-family:"Raleway",'Open Sans', sans-serif, Helvetica;
     font-weight:700;
     letter-spacing:0.04em;
 }
@@ -81,7 +103,6 @@ div#title h1 {
 div#cover-links {
     text-align:center;
     font-variant:small-caps;
-    font-family:"Raleway",'Open Sans', sans-serif, Helvetica;
 }
 
 div.cover-link {
@@ -92,7 +113,6 @@ div.cover-link {
 div.cover-link a {
     color:rgb(205,205,205);
     color:rgba(255,255,255,0.8);
-    font-size:1.2em;
 }
 
 div.cover-link a:hover {
@@ -106,7 +126,6 @@ div#title h2 {
     color:rgb(205,205,205);
     color:rgba(255,255,255,0.8);
     margin-top:0;
-    font-family: "Raleway", sans serif;
     line-height:1.1em;
     font-weight:200;
     padding:0.5em 0;
@@ -128,9 +147,8 @@ div#content p:last-child {
 }
 
 div#content h2 {
-    font-family:"Raleway", sans serif;
     font-weight:400;
-    margin:0.5em 0;
+    margin:1em 0 0.5em 0;
 }
 
 div#content p, pre, ul, ol {
@@ -140,6 +158,13 @@ div#content p, pre, ul, ol {
     hyphens:auto;
     font-family:ff-tisa-web-pro-1,ff-tisa-web-pro-2,Georgia,serif;
     margin-bottom:1.5em;
+}
+
+div#content img {
+    padding:1px;
+    border:1px solid #aaa;
+    max-width:100%;
+    margin-bottom:1em;
 }
 
 blockquote {

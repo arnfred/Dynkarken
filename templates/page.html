@@ -1,10 +1,10 @@
 $def with(page, page_id)
-$var title: Dynkarken: $page["title"]
+$var title: $page.get("page_title", "Dynkarken: " + page["title"])
 
 <style>
 $if page["cover"]:
     $ widths = [800, 1024, 1280, 1600, 2000]
-    @media screen {
+    @media screen and (max-width: 800) {
         body {
             background: url($(page["cover"](800))) no-repeat center center;
         }
@@ -27,7 +27,7 @@ $if page["cover"]:
         <div id="header">
             <div id="title-box">
                 <div class="row title" id="title">
-                    <div class="col-md-8 col-md-offset-2">
+                    <div class="col-md-7 col-md-offset-2">
                         <h1>$page["title"]</h1>
                         <h2>$page.get("subtitle","")</h2>
                         <div id="cover-links">
