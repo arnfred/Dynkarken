@@ -81,7 +81,7 @@ class Pages :
                  self.cover_link("projects", "/projects/"),
                  self.cover_link("about", "/about/")]
         page =  self.cover_page("Dynkarken",
-                                "The personal web page of Jonas Arnfred",
+                                "the personal web page of Jonas Arnfred",
                                 links = links)
         page["page_title"] = "Dynkarken unlimited"
         return page
@@ -92,7 +92,7 @@ class Pages :
     def list_pages(self) :
         pages = { k : p for k,p in self.pages.items() if p["listed"] }
         title = "Writings"
-        subtitle = "A compilation of notes and thoughts"
+        subtitle = "a compilation of notes and thoughts"
         content = "<hr/>\n".join([self.write_page(k,p) for k,p in pages.items()])
         return self.cover_page(title, subtitle, content, self.scroll_down())
 
