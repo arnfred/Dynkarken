@@ -160,14 +160,23 @@ div#content p, pre, ul, ol {
     -ms-hyphens: auto;
     hyphens:auto;
     font-family:ff-tisa-web-pro-1,ff-tisa-web-pro-2,Georgia,serif;
-    margin-bottom:1.5em;
+    margin-bottom:0.5em;
 }
 
 div#content img {
     padding:1px;
     border:1px solid #aaa;
     max-width:100%;
+    margin-bottom:0.2em;
+}
+
+div.figure {
     margin-bottom:1em;
+    text-align:center;
+}
+
+div#content p.caption {
+    margin:0;
 }
 
 blockquote {
@@ -191,12 +200,11 @@ pre, code {
 }
 
 pre.sourceCode {
-    padding: 15px;
     background-color: #f1f1f9;
-    padding: 15px;
     border-top: 1px solid #acd;
     border-bottom: 1px solid #acd;
     border-radius:0;
+    margin-bottom:1.5em;
 }
 
 li p {
@@ -282,6 +290,11 @@ p.read-more {
     text-align:right;
     font-style:italic;
 }
+
+p.caption {
+    font-style:italic;
+    font-size:0.9em;
+
 
 hr {
     border-top:1px solid #ddd;
