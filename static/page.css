@@ -205,6 +205,10 @@ pre {
     border-radius:0;
     margin-bottom:1.5em;
 }
+code {
+    background-color: #f1f1f9;
+    color: #225;
+}
 
 li p {
     margin:0;
