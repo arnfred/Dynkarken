@@ -44,6 +44,7 @@ class Pages :
             if page.get("abstract","") == "":
                 page["abstract"] = page["text"].split("\n")[0]
             page["content"] = content
+            page["sort"] = page["published"]
             page["published"] = self.parse_date(page["published"])
             page["cover"] = self.get_cover_fun(directory)
             page["listed"] = page["listed"] == "True"
@@ -88,8 +89,9 @@ class Pages :
 
     def list_pages(self) :
         page = self.get("writings")
-        pages = { k : p for k,p in self.pages.items() if p["listed"] }
-        page["content"] = "<hr/>\n".join([self.write_page(k,p) for k,p in pages.items()])
+        pages = [ (p["sort"], k ,p) for k,p in self.pages.items() if p["listed"] ]
+        pages = reversed([(k,p) for (s, k ,p) in sorted(pages)])
+        page["content"] = "<hr/>\n".join([self.write_page(k,p) for k,p in pages])
         return page
 
 
