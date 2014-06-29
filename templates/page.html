@@ -5,7 +5,7 @@ $var title: $page.get("page_title", "Dynkarken: " + page["title"])
 $if page["cover"]:
     $ widths = [800, 1024, 1280, 1600, 2000]
     $ heights = [600, 768, 980, 1200, 1600]
-    @media screeæn {
+    @media screen {
         body {
             background: url($(page["cover"](800))) no-repeat center center;
         }
