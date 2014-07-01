@@ -150,8 +150,10 @@ def save_file(file_name, info, temp_dir) :
             url = "/static/pages/%s/%s" % (info['url'], file_name)
             text = info.get("text", "").replace("(%s)" % file_name, "(%s)" % url)
             info["text"] = text
-            if extension in ["jpg","png","gif","bmp"] :
-                resize_image(file_path, temp_dir, 600, 75)
+            if extension in [".jpg",".png",".gif",".bmp"] :
+                call(["cp", file_path, file_name])
+                resize_image(file_name, temp_dir, 600, False, 75)
+                call(["rm", file_name])
             else :
                 call(["cp", "-f", file_path, temp_dir])
         else :
