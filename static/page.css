@@ -163,6 +163,10 @@ div#content p, pre, ul, ol {
     margin-bottom:1em;
 }
 
+div#content ul {
+    margin-top: -0.8em;
+}
+
 div#content img {
     padding:1px;
     border:1px solid #aaa;
