@@ -28,7 +28,7 @@ def main(prog_name, argv) :
 
     print("""You need to specify a command:
           %{0} init [args]
-          %{0} update [args]""".format(prog_name))
+          %{0} publish [args]""".format(prog_name))
     sys.exit(2)
 
 
