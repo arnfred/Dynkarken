@@ -160,7 +160,7 @@ div#content p, pre, ul, ol {
     -ms-hyphens: auto;
     hyphens:auto;
     font-family:ff-tisa-web-pro-1,ff-tisa-web-pro-2,Georgia,serif;
-    margin-bottom:0.5em;
+    margin-bottom:1em;
 }
 
 div#content img {
@@ -171,7 +171,7 @@ div#content img {
 }
 
 div.figure {
-    margin-bottom:1em;
+    margin:1.5em 0;
     text-align:center;
 }
 
