@@ -28,7 +28,7 @@ def main(prog_name, argv) :
 
     print("""You need to specify a command:
           %{0} init [args]
-          %{0} update [args]""".format(prog_name))
+          %{0} publish [args]""".format(prog_name))
     sys.exit(2)
 
 
@@ -159,8 +159,11 @@ def save_file(file_name, info, temp_dir) :
 
 
 def prepare_cover(file_name, temp_dir, keyword, cover_name = "cover.jpg") :
+    # Get cover extension
+    base_name, extension = os.path.splitext(file_name)
+
     # If cover doesn't exist, then fetch random image from ifany
-    cover_name = "cover.jpg"
+    cover_name = "cover%s" % (extension)
     if file_name == "" :
         get_random_cover(keyword, cover_name)
         file_name = cover_name
@@ -173,7 +176,7 @@ def prepare_cover(file_name, temp_dir, keyword, cover_name = "cover.jpg") :
             call(["cp", file_path, cover_name])
         # Translate url's in text
         for width in cover_sizes :
-            resize_image(cover_name, temp_dir, width, True, 60)
+            resize_image(cover_name, temp_dir, width, True, 95)
     else :
         raise Exception("Cover '%s' doesn't exist" % file_name)
 
@@ -200,6 +203,9 @@ def read_conf(conf_path) :
                 page['public'] = value_stripped.lower() in ["true", "yes"]
             elif name.lower() == "published" :
                 page['published'] = parser.parse(value)
+
+            elif name.lower() == "hide title" :
+                page['hide_title'] = value_stripped.lower() in ["true", "yes"]
             else:
                 page[name.lower()] = value_stripped
         else :
@@ -271,7 +277,7 @@ class DateTimeEncoder(json.JSONEncoder):
 def push(local_dir, host_dir = "pages", host = "dynkarken.com", user = "arnfred"):
     if local_dir[-1] == '/' : local_dir = local_dir[:-1]
     call(["rsync","-av",local_dir, "%s@%s:~/%s" % (user, host, host_dir)])
-    call(["cp","-r",local_dir, "/home/arnfred/Code/dynkarken/static/pages/"])
+    call(["cp","-r",local_dir, "/home/arnfred/Workspace/Dynkarken/static/pages/"])
 
 
 
