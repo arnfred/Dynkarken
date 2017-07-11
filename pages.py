@@ -1,6 +1,6 @@
 import json
 from os import listdir
-from os.path import isdir, join
+from os.path import isdir, join, splitext
 
 class Pages :
 
@@ -43,10 +43,12 @@ class Pages :
                 content = page_fp.read().replace("\n\n","\n").replace(">\n<","><").strip("\n \t")
             if page.get("abstract","") == "":
                 page["abstract"] = page["text"].split("\n")[0]
+            base_name, extension = splitext(page.get("cover", "cover.jpg"))
             page["content"] = content
             page["sort"] = page["published"]
             page["published"] = self.parse_date(page["published"])
-            page["cover"] = self.get_cover_fun(directory)
+            page["cover"] = self.get_cover_fun(directory, extension)
+            page["cover_extension"] = extension
             page["listed"] = page["listed"] == "True"
             page["links"] =  self.home_link() if content == "" else self.scroll_down()
         except IOError as e :
@@ -56,9 +58,9 @@ class Pages :
         return page
 
 
-    def get_cover_fun(self, directory):
+    def get_cover_fun(self, directory, extension):
         dir_path = "/static/pages/%s" % directory
-        return lambda size : "%s/cover_%i.jpg" % (dir_path, size)
+        return lambda size : "%s/cover_%i%s" % (dir_path, size, extension)
 
 
     def scroll_down(self):
